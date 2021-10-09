@@ -53,3 +53,17 @@ const App = () => {
   </ApolloProvider>
 }
 ```
+
+### SignUp Page
+
+`$. npm i formik yup`
+
+`$. npm i -D @types/yup`
+
+these packages are awesome, because the will help us in form validation
+
+```js
+import { gql, useMutation } from '@apollo/client';
+
+
+```
