@@ -133,3 +133,19 @@ const Signup = () => {
 
 export default Signup;
 ```
+
+## Protected Routes
+
+create a component called `IsAuthenticated.tsx`
+
+```js
+import { Redirect } from 'react-router-dom';
+
+const IsAuthenticated = ({ children }) => {
+  if (!localStorage.getItem("token")) <Redirect to={{ pathname: '/login' }} />;
+  
+  return children;
+}
+```
+
+then wrap the Routes which you want to protected, with `IsAuthenticated`
