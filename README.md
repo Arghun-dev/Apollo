@@ -154,3 +154,30 @@ const IsAuthenticated = ({ children }: Props) => {
 ```
 
 then wrap the Routes which you want to protected, with `IsAuthenticated`
+
+Profile.js
+
+```js
+import { useQuery } from '@apollo/client'; 
+
+export const ME_QUERY = gql`
+  query me {
+    me {
+      id
+      profile {
+        id
+        bio
+        location
+        website
+        avatar
+      }
+    }
+  }
+`
+
+function Profile() {
+  const { loading, error, data } = useQuery(ME_QUERY);
+  
+  if (loading) return <div>loading</div>
+}
+```
