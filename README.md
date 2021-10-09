@@ -123,7 +123,7 @@ const Signup = () => {
          <ErrorMessage name="name" component={'div'} />
          <Field name="password" type="password" />
          <ErrorMessage name="poassword" component={'div'} />
-         <Field name="confirmPassword" type="confirmPassword" />
+         <Field name="confirmPassword" type="password" />
          <ErrorMessage name="confirmPassword" component={'div'} />
        </Form>
      </Formik>
