@@ -189,3 +189,27 @@ function Profile() {
   )
 }
 ```
+
+
+### Create Profile Component
+
+CreateProfile.tsx
+
+```js
+import { gql, useMutation } from '@apollo/client';
+
+const CREATE_PROFILE_MUTATION = gql`
+  muutation createProfile($bio: String!, $location: String, $website: String, avatar: String) {
+     createProfile(bio: $bio, location: $location, website: $website, avatar: $avatar) {
+       id
+     }
+  }
+`
+
+const CreateProfile = () => {
+  // here when you call `createProfile` after that `refetchQueries` will be called and `refetchQueries` here says that call `ME_QUERY`
+  const [createProfile] = useMutation(CREATE_PROFILE_MUTATION, {
+     refetchQueries: [{ query: ME_QUERY }]
+  })
+}
+```
