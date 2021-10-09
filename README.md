@@ -197,6 +197,7 @@ CreateProfile.tsx
 
 ```js
 import { gql, useMutation } from '@apollo/client';
+import { Form, Field, Formik, ErrorMessage } from 'formik';
 
 const CREATE_PROFILE_MUTATION = gql`
   muutation createProfile($bio: String!, $location: String, $website: String, avatar: String) {
@@ -206,10 +207,48 @@ const CREATE_PROFILE_MUTATION = gql`
   }
 `
 
+interface ProfileValues {
+   bio: string;
+   location: string;
+   website: string;
+   avatar: string;
+}
+
 const CreateProfile = () => {
   // here when you call `createProfile` after that `refetchQueries` will be called and `refetchQueries` here says that call `ME_QUERY`
   const [createProfile] = useMutation(CREATE_PROFILE_MUTATION, {
      refetchQueries: [{ query: ME_QUERY }]
-  })
+  });
+  
+  const initialValues: ProfileValues = {
+    bio: '',
+    location: '',
+    website: '',
+    avatar: ''
+  } 
+  
+  const submit = async (values, { setSubmitting }) => {
+     setSubmitting(true);
+     await createProfile({ variables: values });
+     setSubmitting(false);
+  }
+  
+  return (
+     <Formik
+       initialValues={initialValues}
+       onSubmit={submit}
+       validationSchema={validationSchema}
+     >
+        <Form>
+          <Field name="bio" type="text" as="textArea" placeholder="Bio" />
+          <ErrorMessage name="bio" component={'div'} />
+          <Field name="location" type="location" placeholder="Location" />
+          <ErrorMessage name="location" component={'div'} />
+          <Field name="Website" type="website" placeholder="website" />
+          <ErrorMessage name="Website" component={'div'} />
+          <button type="submit">Submit</button>
+       </Form>
+     </Formik>
+  )
 }
 ```
