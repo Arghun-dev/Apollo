@@ -178,6 +178,14 @@ export const ME_QUERY = gql`
 function Profile() {
   const { loading, error, data } = useQuery(ME_QUERY);
   
-  if (loading) return <div>loading</div>
+  if (loading) return <div>loading</div>;
+  
+  if (error) return <div>{error.message}</div>;
+  
+  return (
+   <div>
+     // render data here
+   </div>
+  )
 }
 ```
