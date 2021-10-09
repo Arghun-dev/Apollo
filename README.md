@@ -264,3 +264,5 @@ const UPDATE_PROFILE_MUTATION = gql`
   }
 `
 ```
+
+**If you imagine in GraphQL we don't say put post delete get and many other stuff, we just call the method name which has been assigned in backend, for example `createprofile`, `updateProfile`**
