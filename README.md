@@ -139,12 +139,17 @@ export default Signup;
 create a component called `IsAuthenticated.tsx`
 
 ```js
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-const IsAuthenticated = ({ children }) => {
+interface Props {
+  children?: React.ReactNode;
+}
+
+const IsAuthenticated = ({ children }: Props) => {
   if (!localStorage.getItem("token")) <Redirect to={{ pathname: '/login' }} />;
   
-  return children;
+  return <>{children}</>;
 }
 ```
 
