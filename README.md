@@ -125,6 +125,7 @@ const Signup = () => {
          <ErrorMessage name="poassword" component={'div'} />
          <Field name="confirmPassword" type="password" />
          <ErrorMessage name="confirmPassword" component={'div'} />
+         <button type="submit">Signup</button>
        </Form>
      </Formik>
    )
