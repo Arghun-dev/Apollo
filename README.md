@@ -346,17 +346,18 @@ const submit = async (values, { setSubmitting }) => {
   await createTweet({ variables: values })
 }
 
-<Formik
- initialValues={initialValues}
- validationSchema={validationSchema}
- onSubmit={submit}
->
+return (
+  <Formik
+   initialValues={initialValues}
+   validationSchema={validationSchema}
+   onSubmit={submit}
+  >
   <Form>
     <Field name="content" type="text" as="textarea" />
     <ErrorMessage name="content" component={'div'} />
   </Form> 
-</Formik>
+ </Formik>
+)
 }
-
 
 ```
