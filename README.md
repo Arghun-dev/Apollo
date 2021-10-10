@@ -306,3 +306,23 @@ const uploadImage = async(e) => {
  </>
 )}
 ```
+
+Tweet.tsx
+
+```js
+import { gql, useMutation } from '@apollo/client';
+
+const CREATE_TWEET_MUTATION = gql`
+  mutation createTweet($content: !String) {
+    createTweet(content: $content) {
+      id
+    }
+  }
+`
+
+const Tweet = () => {
+  const [createTweet] = useMutation(CREATE_TWEET_MUTATION, {
+    refetchQueries: [{ query: ME_QUERY }]
+  })
+}
+```
