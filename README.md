@@ -369,3 +369,48 @@ const logout = () => {
   history.push('/login')
 }
 ```
+
+Tweets.tsx
+
+```js
+const TWEETS_QUERY = gql`
+  tweets {
+    id
+    createdAt
+    content
+    author {
+      id
+      name
+      Profile {
+        id 
+        avatar
+      }
+    }
+  }
+`
+
+interface ITweet {
+  content: string;
+  createdAt: Date;
+  author: {
+    name: string;
+    Profile: {
+      avatar: string;
+    }
+  }
+}
+
+const Tweets = () => {
+  const { loading, data, error } = useQuery(TWEETS_QUERY);
+  
+  if (loading) return <div>loading...</div>
+  
+  if (error) return <div>Error</div>
+  
+  return data.tweets.map((tweet: ITweet) => (
+    <div className="tweet-container">
+      ...
+    </div>
+  ))
+}
+```
