@@ -311,6 +311,7 @@ Tweet.tsx
 
 ```js
 import { gql, useMutation } from '@apollo/client';
+import * as Yup from 'yup';
 
 const CREATE_TWEET_MUTATION = gql`
   mutation createTweet($content: !String) {
@@ -319,6 +320,10 @@ const CREATE_TWEET_MUTATION = gql`
     }
   }
 `
+
+const validationSchema = Yup.object({
+  content: Yup.string().required().min(1, "Must be at least 1 character").max(256, "Must be less than 256 characters")
+})
 
 const Tweet = () => {
   const [createTweet] = useMutation(CREATE_TWEET_MUTATION, {
