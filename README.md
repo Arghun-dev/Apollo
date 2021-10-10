@@ -266,3 +266,43 @@ const UPDATE_PROFILE_MUTATION = gql`
 ```
 
 **If you notice in GraphQL we don't say put post delete get and many other stuff, we just call the method name which has been assigned in backend, for example `createprofile`, `updateProfile`**
+
+
+## upload profile
+
+```js
+const inputFile = useRef(null);
+const [image, setImage] = useState("");
+const [imageLoading, setImageLoading] = useState(false);
+
+const uploadImage = async(e) => {
+  const files = e.target.files;
+  const data = new FormData();
+  data.append('file', files[0]);
+  setImageLoading(true);
+  const res = await fetch(process.env.END_POINT, {
+    method: 'POST',
+    body: data
+  })
+  const file = await res.json();
+  setImage(file);
+  setImageLoading(false);
+}
+
+<input
+  type="file"
+  name="file"
+  onChange={uploadImage}
+  ref={inputFile}
+  style={{ display: "none" }}
+/>
+{imageLoading ? <div>Loading....</div> : (
+ <>
+   <span onClick={() => inputFile.current.click()}>
+     <img
+       src={data.me.Profile.avatar}
+     />
+   </span>
+ </>
+)}
+```
