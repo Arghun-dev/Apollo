@@ -311,6 +311,7 @@ Tweet.tsx
 
 ```js
 import { gql, useMutation } from '@apollo/client';
+import { Form, Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const CREATE_TWEET_MUTATION = gql`
@@ -321,13 +322,41 @@ const CREATE_TWEET_MUTATION = gql`
   }
 `
 
-const validationSchema = Yup.object({
-  content: Yup.string().required().min(1, "Must be at least 1 character").max(256, "Must be less than 256 characters")
-})
+interface InitialValues = {
+  content: string;
+}
+
+
 
 const Tweet = () => {
   const [createTweet] = useMutation(CREATE_TWEET_MUTATION, {
     refetchQueries: [{ query: ME_QUERY }]
   })
+  
+  const validationSchema = Yup.object({
+    content: Yup.string().required().min(1, "Must be at least 1 character").max(256, "Must be less than 256 characters")
+  })
+  
+  const initialValues: InitialValues = {
+  content: ''
 }
+
+const submit = async (values, { setSubmitting }) => {
+  setSubmitting(true);
+  await createTweet({ variables: values })
+}
+
+<Formik
+ initialValues={initialValues}
+ validationSchema={validationSchema}
+ onSubmit={submit}
+>
+  <Form>
+    <Field name="content" type="text" as="textarea" />
+    <ErrorMessage name="content" component={'div'} />
+  </Form> 
+</Formik>
+}
+
+
 ```
